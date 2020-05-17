@@ -1,0 +1,24 @@
+<div class="login-page">
+  <div class="login-spacer"></div>
+  <div class="login-container">
+    <div id="login-fab" class="mdl-color--accent mdl-color-text--white">
+      <i id="lock-icon" class="material-icons">lock</i>
+    </div>
+    <h2 class="card-heading">
+      OIDC with Idle Time Handling
+    </h2>
+    <form [formGroup]="loginForm" class="login-form">
+      <mat-form-field >
+        <input type="email" matInput placeholder="Username" formControlName="username">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput type='password' placeholder="Password" formControlName="password">
+      </mat-form-field>
+      <div class="buttons">
+        <div class="login">
+          <button (click)="login()" mat-raised-button color="primary">Log in</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

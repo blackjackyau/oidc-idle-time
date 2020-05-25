@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 
@@ -31,9 +31,8 @@ export class OktaAuthService {
 
   extendSession(): Observable<any> {
     return this.http.get<any>(`${this.oktaUrl}/api/v1/sessions/me`, { withCredentials: true }).pipe(
-      tap(result => {
+      map(result => {
         this.renewState$.next(true);
-        console.log(result);
       })
     );
   }

@@ -16,10 +16,8 @@ export class FragmentGuard implements CanActivate {
   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     console.log(state.url);
     if (state.url.startsWith('/?') || state.url.startsWith('?')) {
-      console.log('has fragment');
       return true;
     } else {
-      console.log('to home');
       return this.router.createUrlTree(['home']);
     }
   }

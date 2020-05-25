@@ -2,16 +2,29 @@ import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
 import { OidcAuthService } from './auth.service';
 import { environment } from '../../environments/environment';
-import { from, Observable } from 'rxjs';
-import { map, flatMap, switchMap } from 'rxjs/operators';
+import { from, Subject } from 'rxjs';
+import { switchMap, throttleTime, catchError } from 'rxjs/operators';
 import { OktaAuthService } from '../okta/okta-auth.service';
+import { Router } from '@angular/router';
+import { EMPTY } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private authService: OidcAuthService, private oktaAuthService: OktaAuthService) { }
+  //https://stackoverflow.com/questions/42041885/throttling-http-requests-before-theyre-made
+  sessionExtendSubject = new Subject<boolean>();
+
+  constructor(private authService: OidcAuthService, private oktaAuthService: OktaAuthService, private router: Router) {
+    this.sessionExtendSubject.asObservable().pipe(
+      throttleTime(environment.sessionExtendRateLimit), // rate limit
+      switchMap(() => {
+        return this.oktaAuthService.extendSession();    
+      })
+    ).subscribe();
+  }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
 
@@ -19,12 +32,14 @@ export class AuthInterceptor implements HttpInterceptor {
     if (req.url.startsWith(environment.relyingPartyUrl)) {
       this.extendSession();
       if (this.authService.accessTokenisExpired()) {
-        console.log('token is expired, renewing token');
         return from(this.authService.renew()).pipe(
           switchMap(() => {
-            console.log('token is renewed');
             const authReq = this.insertAuthHeader(req);
             return next.handle(authReq);
+          }),
+          catchError(() => {
+            this.router.navigateByUrl('logout');
+            return EMPTY;
           })
         )
       }
@@ -47,8 +62,6 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private extendSession() {
-    this.oktaAuthService.extendSession().subscribe(() => {
-      console.log('session extended');
-    });
+    this.sessionExtendSubject.next(true);
   }
 }

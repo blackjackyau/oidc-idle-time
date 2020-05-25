@@ -1,27 +1,30 @@
-# OidcIdleTime
+[![Actions Status](https://github.com/blackjackyau/oidc-idle-time/workflows/Node%20CI/badge.svg)](https://github.com/blackjackyau/oidc-idle-time/actions)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.4.
+# Oidc Idle Time Implementation using Okta and Angular
+This project is a sample implementation of OIDC Idle Time handling described from [here](https://medium.com/@yau.yik.shiung/oidc-idle-timeout-design-5149da2be93e) in Angular project.
 
-## Development server
+[Github Page (hosted)](https://blackjackyau.github.io/oidc-idle-time-page)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Project setup
+1. OP (OpenID Provider) / IdP = [OKTA](https://dev-875318.okta.com)
+2. RP (Relying Party) = [dummy.restapiexample.com](http://dummy.restapiexample.com)
+3. IdP session extention API [Session Me](https://developer.okta.com/docs/reference/api/sessions/#get-current-session)
 
-## Code scaffolding
+## Project Walkthrough
+1. Login using `sample@example.com` | `Password123`
+2. Open and observe browser developer console
+3. `IdP session extended for 15 minutes` indicates OP/IdP Session TTL has been extended to 15 minutes more
+4. `Access token renewed (15 minutes)` indicates Access Token for RP has been renewed (also indicating IdP session is still active)
+5. Simulate the "user active" activity using RP API call (Reload button), Refers to the blog for the handling details ![idle handling](https://miro.medium.com/max/657/1*9J5eaflVYv68gXCWnRIgjQ.png)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Okta IdP Setting
+Register your okta developer account (https://developer.okta.com/signup)
 
-## Build
+### Application Setting
+![okta application setup](doc/okta-application-setup.png)
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### IdP SSO TTL Setting
+![IdP SSO setup](doc/idp-sso-ttl.png)
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### RP Access Token Expiration Setup
+![IdP SSO setup](doc/access-token-lifecycle.png)

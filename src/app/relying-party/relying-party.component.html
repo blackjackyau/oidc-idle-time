@@ -1,5 +1,5 @@
-<h1>Employee Details</h1>
-<button (click)="load()" mat-raised-button color="primary">Reload</button>
+<h1>Employee Details (Relying Party)</h1>
+<button (click)="load()" mat-raised-button color="primary">Reload </button>
 <mat-nav-list>
     <mat-list-item *ngFor="let employee of employees$ | async">
         <p matLine> Name: {{ employee.employee_name }} </p>

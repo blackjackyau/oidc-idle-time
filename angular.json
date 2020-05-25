@@ -110,6 +110,10 @@
             ]
           }
         },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy",
+          "options": {}
+        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {

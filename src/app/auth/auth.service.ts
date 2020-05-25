@@ -30,9 +30,6 @@ export class OidcAuthService {
 
     constructor(@Inject(OidcConfigService) private config: OidcConfig,
         private router: Router) {
-
-        console.info('OidcAuthService: constructor()');
-
         this.currentUser = null;
 
         const oidcConfig: oidcClient.UserManagerSettings = {
@@ -129,8 +126,6 @@ export class OidcAuthService {
     }
 
     public async loginWithRedirect(param?: any): Promise<void> {
-
-        console.info('OidcAuthService: loginWithRedirect()');
         var args = undefined;
         if (param) {
             args = {
@@ -146,8 +141,6 @@ export class OidcAuthService {
 
     public async handleRedirectCallback(): Promise<void> {
 
-        console.info('OidcAuthService: handleRedirectCallback()');
-
         this.currentUser = await this.authService.signinRedirectCallback();
 
         console.info('currentUser: ' + JSON.stringify(this.currentUser, null, 2));
@@ -160,26 +153,13 @@ export class OidcAuthService {
     }
 
     public logout() {
-
-        console.info('OidcAuthService: logout()');
-
         this.authState$.next(false);
-
         this.authService.signoutRedirect();
-
     }
 
     public async renew() {
         this.currentUser = await this.authService.signinSilent();
         this.renewState$.next(!!this.currentUser);
-        this.authState$.next(!!this.currentUser);
-    }
-
-    public async querySessionStatus() : Promise<oidcClient.SessionStatus> {
-        const session = await this.authService.querySessionStatus();
-        console.log(session);
-        //this.authState$.next(!!this.currentUser);
-        return session;
     }
 
     //

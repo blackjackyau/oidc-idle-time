@@ -43,16 +43,22 @@ export class HomeComponent implements OnInit {
     this.mobileQuery.addListener(this.mobileQueryListener);
     this.user = this.oidcAuthService.getCurrentUser();
 
-    this.oidcAuthService.renewState$.subscribe(() => {
-      this.snackBar.open('access token renewed (15 minutes)', '', {
-        duration: 2000,
-      });
+    this.oidcAuthService.renewState$.subscribe((flag) => {
+      if (flag) {
+        console.log('Access token renewed (15 minutes)');
+        this.snackBar.open('Access token renewed (15 minutes)', '', {
+          duration: 3000,
+        });
+      }
     });
 
-    this.oktaAuthService.renewState$.subscribe(() => {
-      this.snackBar.open('IdP session extended for 15 minutes', '', {
-        duration: 2000,
-      });
+    this.oktaAuthService.renewState$.subscribe((flag) => {
+      if (flag) {
+        console.log('IdP session extended for 15 minutes');
+        this.snackBar.open('IdP session extended for 15 minutes', '', {
+          duration: 3000,
+        });
+      }
     });
   }
 

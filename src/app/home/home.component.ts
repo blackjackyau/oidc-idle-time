@@ -21,6 +21,11 @@ export class HomeComponent implements OnInit {
       label: 'Relying Party',
       link: 'relying-party',
       icon: 'vpn_key'
+    },
+    {
+      label: 'Relying Party 2',
+      link: 'relying-party-second',
+      icon: 'vpn_key'
     }
   ];
 

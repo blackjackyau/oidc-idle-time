@@ -20,6 +20,7 @@ const routes: Routes = [
     path: 'home', component: HomeComponent, canActivate: [LoggedInGuard],
     children: [
       { path: 'relying-party', component: RelyingPartyComponent },
+      { path: 'relying-party-second', component: RelyingPartyComponent },
       { path: '', redirectTo: 'relying-party', pathMatch: 'full' },
     ]
   },

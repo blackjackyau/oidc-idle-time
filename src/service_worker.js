@@ -37,6 +37,8 @@ const cacheName = 'v1';
 // const navigationRoute = new workbox.routing.NavigationRoute(handler);
 // registerRoute(navigationRoute);
 
+// TODO : integrate SW to angular build lifecycle https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script
+
 const doNothingCb = async ({ url, request, event, params }) => {
     return await fetch(request);
 };

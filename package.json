@@ -4,8 +4,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build-sw-config": "ng build --prod=true && workbox generateSW",
-    "build-sw-script": "ng build --prod=true && workbox copyLibraries dist/oidc-idle-time/workbox/ && workbox injectManifest workbox-config-script.js",
+    "build": "ng build",
+    "build-sw-config": "workbox generateSW",
+    "build-sw-script": "workbox copyLibraries dist/oidc-idle-time/workbox/ && workbox injectManifest workbox-config-script.js",
     "test": "ng test",
     "lint": "ng lint",
     "deploy": "ng deploy",

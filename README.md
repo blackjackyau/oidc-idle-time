@@ -33,14 +33,14 @@ Register your okta developer account (https://developer.okta.com/signup)
 ### workbox integration [link](https://developers.google.com/web/tools/workbox/guides/get-started)
 #### npm bundle way and workbox-config configuration way
 [Reference](https://developers.google.com/web/tools/workbox/guides/codelabs/npm-script)
-1. in package.json, generate service worker metadata `"build-sw-config": "ng build --prod=true && workbox generateSW"`
+1. in package.json, generate service worker metadata `"build-sw-config": "workbox generateSW"`, should execute after build
 2. workbox will look for the workbox-config and generate the precached assets
 3. generate a sw.js (specify from config) and register at window service worker (main.ts)
-4. to run `npm run build-sw-config && npm run server`
+4. to run `npm run build && npm run build-sw-config && npm run server`
 
 #### Achieve custom service worker js
 [Reference](https://codelabs.developers.google.com/codelabs/workbox-lab/#0)
-1. achieve precahce using inject manifest `"build-sw-script": "ng build --prod=true && workbox injectManifest"`
+1. achieve precahce using inject manifest `"build-sw-script": "workbox injectManifest"`, should execute after build
 2. support both CDN and local [link](https://developers.google.com/web/tools/workbox/modules/workbox-sw#using_local_workbox_files_instead_of_cdn)
 3. of course the best option is still be local mode
-4. to run `npm run build-sw-script && npm run server`
+4. to run `npm run build && npm run build-sw-script && npm run server`

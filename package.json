@@ -4,10 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build-sw-config": "ng build --prod=true && workbox generateSW",
+    "build-sw-script": "ng build --prod=true && workbox copyLibraries dist/oidc-idle-time/workbox/ && workbox injectManifest workbox-config-script.js",
     "test": "ng test",
     "lint": "ng lint",
     "deploy": "ng deploy",
+    "server": "http-server dist/oidc-idle-time -p 4200",
     "e2e": "ng e2e"
   },
   "private": true,
@@ -41,6 +43,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "codelyzer": "^5.1.2",
+    "http-server": "^0.12.3",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.0.0",
@@ -52,6 +55,7 @@
     "querystringify": ">=2.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "workbox-cli": "^5.1.3"
   }
 }

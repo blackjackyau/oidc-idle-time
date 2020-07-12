@@ -25,7 +25,8 @@ jobs:
     - name: npm install, build, and test
       run: |
         npm ci
-        npm run deploy -- --base-href=/oidc-idle-time-page/ --repo=https://github.com/blackjackyau/oidc-idle-time-page.git --name="blackjackyau" --email=blackjackyau@example.com
+        npm run build-sw-config
+        npm run deploy -- --no-build --base-href=/oidc-idle-time-page/ --repo=https://github.com/blackjackyau/oidc-idle-time-page.git --name="blackjackyau" --email=blackjackyau@example.com
       env:
         CI: true
         GH_TOKEN: ${{ secrets.GH_TOKEN }}

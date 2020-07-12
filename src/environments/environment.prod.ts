@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
   oktaUrl: 'https://dev-875318.okta.com',
-  relyingPartyUrl: 'https://cors-anywhere.herokuapp.com/http://dummy.restapiexample.com',
+  relyingPartyUrl: 'https://run.mocky.io/v3/d9293e84-c72f-46ad-8f1e-48148ba7b238',
   sessionExtendRateLimit: 60000, // 1 mins
   oidc: {
     clientId: '0oam5zkpp9nqUwpq0356',
